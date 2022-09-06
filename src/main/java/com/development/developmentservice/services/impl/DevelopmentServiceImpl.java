@@ -6,7 +6,7 @@ import com.development.developmentservice.exception.NoSuchPartyExistException;
 import com.development.developmentservice.model.DevelopmentDTO;
 import com.development.developmentservice.repository.DevelopmentRepository;
 import com.development.developmentservice.services.DevelopmentService;
-import com.development.developmentservice.services.DevelopmentUtility;
+import com.development.developmentservice.utility.DevelopmentUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,9 @@ public class DevelopmentServiceImpl implements DevelopmentService {
     @Autowired
     private DevelopmentRepository developmentRepository;
 
+    @Autowired
+    private RemoteServiceHelper remoteServiceHelper;
+
     /**
      * Assign some development work to the Political leader.
      *
@@ -29,12 +32,12 @@ public class DevelopmentServiceImpl implements DevelopmentService {
     public DevelopmentDTO assignDevelopmentWork(DevelopmentDTO developmentDTO) throws NoSuchLeaderExistException, NoSuchPartyExistException {
         //        Check if the party exists
         Long partyId = developmentDTO.getPartyId();
-        DevelopmentUtility.findPartyById(partyId)
+        remoteServiceHelper.findPartyById(partyId)
                 .orElseThrow(() -> new NoSuchPartyExistException(partyId));
 
         //        Check if the leader exists in the leader service
         Long leaderId = developmentDTO.getLeaderId();
-        DevelopmentUtility.findLeaderById(partyId, leaderId)
+        remoteServiceHelper.findLeaderById(partyId, leaderId)
                 .orElseThrow(() -> new NoSuchLeaderExistException(leaderId));
 
         Development development = DevelopmentUtility.convertToEntity(developmentDTO);

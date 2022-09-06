@@ -4,6 +4,7 @@ import com.development.developmentservice.exception.NoSuchLeaderExistException;
 import com.development.developmentservice.exception.NoSuchPartyExistException;
 import com.development.developmentservice.model.DevelopmentDTO;
 import com.development.developmentservice.services.DevelopmentService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "development")
+@Log4j2
 public class DevelopmentController {
 
     @Autowired

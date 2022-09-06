@@ -1,21 +1,11 @@
-package com.development.developmentservice.services;
+package com.development.developmentservice.utility;
 
 import com.development.developmentservice.entity.Development;
 import com.development.developmentservice.model.DevelopmentDTO;
-import com.development.developmentservice.model.LeaderDTO;
-import com.development.developmentservice.model.PartyDTO;
-import org.springframework.web.client.RestTemplate;
+import lombok.extern.log4j.Log4j2;
 
-import java.util.Optional;
-
+@Log4j2
 public final class DevelopmentUtility {
-
-    private static final RestTemplate restTemplate = new RestTemplate();
-
-    private static final String LEADER_SERVICE_URI = "http://localhost:9092/leader/";
-
-    private static final String PARTY_SERVICE_URI = "http://localhost:9091/party/";
-
 
     public static Development convertToEntity(DevelopmentDTO developmentDTO) {
         Development development = new Development();
@@ -45,25 +35,4 @@ public final class DevelopmentUtility {
         return developmentDTO;
     }
 
-    /**
-     * Call Leader service to get the leader information based on the ID
-     *
-     * @param partyId
-     * @param leaderId
-     * @return
-     */
-    public static Optional<LeaderDTO> findLeaderById(Long partyId, Long leaderId) {
-        final String URI = LEADER_SERVICE_URI + "find/" + partyId + "/" + leaderId;
-        return Optional.ofNullable(restTemplate.getForObject(URI, LeaderDTO.class));
-    }
-
-    /**
-     * Get Party details using party id from PartyService
-     *
-     * @param partyId
-     * @return
-     */
-    public static Optional<PartyDTO> findPartyById(Long partyId) {
-        return Optional.ofNullable(restTemplate.getForObject(PARTY_SERVICE_URI + partyId, PartyDTO.class));
-    }
 }
