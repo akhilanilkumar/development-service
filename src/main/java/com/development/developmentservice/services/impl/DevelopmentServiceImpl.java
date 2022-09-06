@@ -27,13 +27,15 @@ public class DevelopmentServiceImpl implements DevelopmentService {
      */
     @Override
     public DevelopmentDTO assignDevelopmentWork(DevelopmentDTO developmentDTO) throws NoSuchLeaderExistException, NoSuchPartyExistException {
-        //        Check if the leader exists in the leader service
-        DevelopmentUtility.findLeaderById(developmentDTO.getLeaderId())
-                .orElseThrow(() -> new NoSuchLeaderExistException("No matching records found for Leader: " + developmentDTO.getLeaderId()));
-
         //        Check if the party exists
-        DevelopmentUtility.findPartyById(developmentDTO.getPartyId())
-                .orElseThrow(() -> new NoSuchPartyExistException("No matching records found for a Party: " + developmentDTO.getPartyId()));
+        Long partyId = developmentDTO.getPartyId();
+        DevelopmentUtility.findPartyById(partyId)
+                .orElseThrow(() -> new NoSuchPartyExistException(partyId));
+
+        //        Check if the leader exists in the leader service
+        Long leaderId = developmentDTO.getLeaderId();
+        DevelopmentUtility.findLeaderById(partyId, leaderId)
+                .orElseThrow(() -> new NoSuchLeaderExistException(leaderId));
 
         Development development = DevelopmentUtility.convertToEntity(developmentDTO);
 

@@ -48,11 +48,13 @@ public final class DevelopmentUtility {
     /**
      * Call Leader service to get the leader information based on the ID
      *
+     * @param partyId
      * @param leaderId
      * @return
      */
-    public static Optional<LeaderDTO> findLeaderById(Long leaderId) {
-        return Optional.ofNullable(restTemplate.getForObject(LEADER_SERVICE_URI + "find/" + leaderId, LeaderDTO.class));
+    public static Optional<LeaderDTO> findLeaderById(Long partyId, Long leaderId) {
+        final String URI = LEADER_SERVICE_URI + "find/" + partyId + "/" + leaderId;
+        return Optional.ofNullable(restTemplate.getForObject(URI, LeaderDTO.class));
     }
 
     /**
