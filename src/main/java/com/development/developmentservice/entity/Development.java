@@ -3,19 +3,27 @@ package com.development.developmentservice.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "development")
 @Getter
 @Setter
-public class Development {
+public class Development implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -30,9 +38,6 @@ public class Development {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "activity")
-    private String activity;
-
     @Column(name = "budget")
     private Double budget;
 
@@ -44,25 +49,8 @@ public class Development {
 
     @Column(name = "activity_year")
     private int activityYear;
-}
 
-enum ActivityMonth {
-    JAN(1),
-    FEB(2),
-    MAR(3),
-    APR(4),
-    MAY(5),
-    JUN(6),
-    JUL(7),
-    AUG(8),
-    SEPT(9),
-    OCT(10),
-    NOV(11),
-    DEC(12);
-
-    private final int month;
-
-    ActivityMonth(int month) {
-        this.month = month;
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "development_id", referencedColumnName = "id")
+    private Set<Activity> activities;
 }

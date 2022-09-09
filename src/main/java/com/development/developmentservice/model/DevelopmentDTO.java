@@ -8,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
 public class DevelopmentDTO implements Serializable {
@@ -22,9 +23,7 @@ public class DevelopmentDTO implements Serializable {
     @Length(min = 5, max = 100, message = "Title length should be with in 5 to 100 characters!")
     private String title;
 
-    @NotNull
-    @Length(min = 5, max = 100, message = "Activity length should be with in 5 to 100 characters!")
-    private String activity;
+    private Set<ActivityDTO> activityDTOS;
 
     @Digits(integer = 999999999, fraction = 2, message = "Budget is a number in max 2 decimal points!")
     private Double budget;
