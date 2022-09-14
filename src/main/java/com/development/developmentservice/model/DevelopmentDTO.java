@@ -23,7 +23,7 @@ public class DevelopmentDTO implements Serializable {
     @Length(min = 5, max = 100, message = "Title length should be with in 5 to 100 characters!")
     private String title;
 
-    private Set<ActivityDTO> activityDTOS;
+    private Set<ActivityDTO> activities;
 
     @Digits(integer = 999999999, fraction = 2, message = "Budget is a number in max 2 decimal points!")
     private Double budget;

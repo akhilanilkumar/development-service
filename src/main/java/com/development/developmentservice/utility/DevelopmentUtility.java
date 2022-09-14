@@ -18,7 +18,7 @@ public final class DevelopmentUtility {
         development.setPartyId(developmentDTO.getPartyId());
         development.setLeaderId(developmentDTO.getLeaderId());
         development.setTitle(developmentDTO.getTitle());
-        Set<Activity> activities = developmentDTO.getActivityDTOS().stream()
+        Set<Activity> activities = developmentDTO.getActivities().stream()
                 .map(DevelopmentUtility::convertToActivity)
                 .peek(activity -> activity.setDevelopment(development))
                 .collect(Collectors.toSet());
@@ -38,7 +38,7 @@ public final class DevelopmentUtility {
         developmentDTO.setTitle(development.getTitle());
         Set<ActivityDTO> activityDTOS = development.getActivities()
                 .stream().map(DevelopmentUtility::convertToActivityDTO).collect(Collectors.toSet());
-        developmentDTO.setActivityDTOS(activityDTOS);
+        developmentDTO.setActivities(activityDTOS);
         developmentDTO.setBudget(development.getBudget());
         developmentDTO.setState(development.getState());
         developmentDTO.setActivityMonth(development.getActivityMonth());
