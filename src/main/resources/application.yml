@@ -1,21 +1,16 @@
 spring:
-  zipkin:
-    baseUrl: http://localhost:9411/zipkin/
   application:
     name: development-service
   datasource:
-    username: root
-    url: jdbc:mysql://localhost:3306/assign_development
+    username: ${DB_USERNAME:root}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/assign_development}
     driverClassName: com.mysql.cj.jdbc.Driver
-    password: root@123
+    password: ${DB_PASS:root@123}
   jpa:
-    #    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL55Dialect
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 eureka:
   client:
     serviceUrl:
@@ -23,5 +18,5 @@ eureka:
 server:
   port: 9093
 uri:
-  leader-service: http://localhost:9092/leader/
-  party-service: http://localhost:9091/party/
+  leader-service: ${LEADER_SERVICE:http://localhost:9092/leader/}
+  party-service: ${PARTY_SERVICE:http://localhost:9091/party/}
